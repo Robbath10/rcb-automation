@@ -1,19 +1,10 @@
-# RCB Automation LLC - Premium Vercel Version
+# RCB Automation LLC - Fixed Vercel Version
 
-## Open in VS Code
-1. Unzip this folder
-2. Open the folder in VS Code
-3. Open a terminal
-4. Run:
-   npm install
-   npm run dev
+This version uses plain CSS instead of Tailwind so it renders correctly on Vercel without extra styling configuration.
 
-## Deploy to Vercel
-- Push to GitHub and import into Vercel, or upload the folder contents
-- Build command: npm run build
-- Output directory: dist
+## Run locally
+npm install
+npm run dev
 
-## Main files
-- src/App.jsx
-- src/main.jsx
-- src/index.css
+## Build
+npm run build

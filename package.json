@@ -1,5 +1,6 @@
+
 {
-  "name": "rcb-automation-vercel-premium",
+  "name": "rcb-automation-vercel-fixed",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -9,11 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "framer-motion": "^12.23.12",
-    "lucide-react": "^0.542.0",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "tailwindcss": "^4.1.12"
+    "react-dom": "^19.1.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^5.0.0",
