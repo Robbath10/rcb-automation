@@ -1,0 +1,1 @@
+export default function App(){return <div style={{padding:40,fontFamily:'Arial'}}>RCB Automation package ready. Replace src/App.jsx with your latest canvas code if needed.</div>}
