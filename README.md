@@ -1,10 +1,6 @@
-# RCB Automation LLC - Fixed Vercel Version
+RCB Automation Vercel export
 
-This version uses plain CSS instead of Tailwind so it renders correctly on Vercel without extra styling configuration.
-
-## Run locally
-npm install
-npm run dev
-
-## Build
-npm run build
+In Vercel:
+- Framework preset: Vite
+- Build command: npm run build
+- Output directory: dist
