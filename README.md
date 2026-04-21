@@ -1,19 +1,16 @@
-# RCB Automation LLC - Premium Vercel Version
+RCB Automation - Full Vercel Package
 
-## Open in VS Code
-1. Unzip this folder
-2. Open the folder in VS Code
-3. Open a terminal
-4. Run:
-   npm install
-   npm run dev
+Deploy settings:
+- Framework Preset: Vite
+- Build Command: npm run build
+- Output Directory: dist
 
-## Deploy to Vercel
-- Push to GitHub and import into Vercel, or upload the folder contents
-- Build command: npm run build
-- Output directory: dist
+How to use:
+1. Unzip this package.
+2. Replace the contents of your GitHub repo with these files.
+3. Commit to main.
+4. Vercel will auto-deploy.
 
-## Main files
-- src/App.jsx
-- src/main.jsx
-- src/index.css
+Notes:
+- This is a single-page React app with internal navigation state.
+- The contact form is styled and ready to connect to a real email/form backend later.
