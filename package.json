@@ -1,5 +1,5 @@
 {
-  "name": "rcb-automation-premium",
+  "name": "rcb-automation-current-canvas",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "lucide-react": "^0.542.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
