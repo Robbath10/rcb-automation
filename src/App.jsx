@@ -3,6 +3,13 @@ import { useState } from 'react';
 
 const HERO_SRC = 'https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&w=1800&q=80';
 
+const lowerFeatures = [
+  { icon: 'gear', title: 'Engineering Excellence', text: 'Advanced design and engineering expertise.' },
+  { icon: 'robot', title: 'Custom Integration', text: 'Seamless integration with your existing systems.' },
+  { icon: 'check', title: 'Proven Results', text: 'Delivering measurable ROI and operational improvement.' },
+  { icon: 'users', title: 'Client Focused', text: 'We are committed to your long-term success.' },
+];
+
 const COLORS = {
   navy: '#030b18',
   deep: '#020814',
