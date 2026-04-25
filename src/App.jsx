@@ -1,1 +1,0 @@
-export default function App(){return <div style={{padding:40,fontFamily:'Arial'}}><h1>RCB Automation Premium</h1><p>Ready for Vercel deploy. Replace with latest canvas code if desired.</p></div>}
