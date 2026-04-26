@@ -394,13 +394,7 @@ function IndustriesPage() {
       <div style={{ ...contentWrap, display: 'grid', gap: 28, gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', alignItems: 'stretch' }}>
         {industries.map((item) => (
           <div key={item} style={{ ...whiteCard, minHeight: 360, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-            {item === 'Industrial Manufacturing' ? (
-              <video controls muted playsInline style={{ width: '100%', aspectRatio: '16 / 9', borderRadius: 18, marginBottom: 18, objectFit: 'cover', display: 'block' }}>
-                <source src={MARINE_VIDEO_SRC} type="video/mp4" />
-              </video>
-            ) : (
-              <div style={industryIconWrap}><Icon name="building" size={34} strokeWidth={2.4} /></div>
-            )}
+            <div style={industryIconWrap}><Icon name="building" size={34} strokeWidth={2.4} /></div>
             <h3 style={{ ...cardTitle, marginTop: 18, lineHeight: 1.15 }}>{item}</h3>
           </div>
         ))}
@@ -420,7 +414,7 @@ function AboutPage() {
         <h2 style={{ ...sectionTitleLeft, marginTop: 20 }}>Engineering-first automation partnership</h2>
         <p style={leftLead}>RCB Automation helps manufacturers improve efficiency, controls visibility, safety, and long-term performance through custom industrial automation solutions. Our work is centered on dependable delivery, clear communication, and results that support growth.</p>
         <p style={{ ...leftLead, marginTop: 18 }}>We partner with clients from concept through commissioning and continue supporting them as systems evolve, expand, and scale.</p>
-        <video controls muted playsInline style={{ width: '100%', aspectRatio: '16 / 9', height: 'auto', borderRadius: 24, marginTop: 28, objectFit: 'cover', display: 'block', background: '#000' }}>
+        <video controls muted playsInline style={{ width: '100%', aspectRatio: '16 / 9', maxHeight: 620, borderRadius: 24, marginTop: 28, objectFit: 'contain', display: 'block', background: '#000' }}>
           <source src={MARINE_VIDEO_SRC} type="video/mp4" />
         </video>
       </div>
