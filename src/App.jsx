@@ -5,6 +5,35 @@ const MARINE_VIDEO_SRC = (typeof window !== 'undefined' && window.location?.host
   ? 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
   : '/videos/marine-automation.mp4';
 
+const fallbackIndustrialNews = [
+  {
+    title: 'Top 5 Global Robotics Trends 2026',
+    source: 'International Federation of Robotics',
+    date: 'Latest',
+    excerpt: 'Global robotics trends covering AI, humanoid robots, mobile manipulators, digital twins, and new automation opportunities.',
+    url: 'https://ifr.org/ifr-press-releases/news/top-5-global-robotics-trends-2026',
+  },
+  {
+    title: 'Industrial Automation News and Analysis',
+    source: 'Automation World',
+    date: 'Latest',
+    excerpt: 'Manufacturing automation, controls, robotics, IIoT, and production technology updates from across industry.',
+    url: 'https://www.automationworld.com/',
+  },
+  {
+    title: 'Control Engineering Automation Updates',
+    source: 'Control Engineering',
+    date: 'Latest',
+    excerpt: 'PLC, motion control, safety, robotics, system integration, and plant engineering articles for automation teams.',
+    url: 'https://www.controleng.com/',
+  },
+];
+
+const INDUSTRIAL_NEWS_FEEDS = [
+  'https://ifr.org/rss/news-press-releases',
+  'https://www.automationworld.com/rss',
+];
+
 const fallbackBlogPosts = [
   {
     slug: 'plc-controls-upgrade',
@@ -16,11 +45,11 @@ const fallbackBlogPosts = [
   },
   {
     slug: 'robotics-throughput',
-    title: 'How Robotics Improves Manufacturing Throughput',
-    excerpt: 'Robotic integration can increase consistency, reduce bottlenecks, and improve overall equipment effectiveness.',
+    title: 'How Robots Are Transforming Manufacturing Jobs',
+    excerpt: 'See how robotics is reshaping plant roles, improving safety, filling labor gaps, and creating higher-value manufacturing jobs.',
     date: 'April 2026',
-    body: 'Robotics can improve throughput by reducing manual handling, stabilizing cycle times, increasing repeatability, and allowing operators to focus on higher-value work. The strongest results come from matching the robot, tooling, controls, safety, and process flow to the actual production bottleneck.',
-    url: 'https://www.netsuite.com/portal/resource/articles/erp/robotics-in-manufacturing.shtml'
+    body: 'Industrial robots continue to transform manufacturing by taking repetitive tasks, improving ergonomics, increasing consistency, and enabling workers to focus on programming, maintenance, quality, and higher-skill operations.',
+    url: 'https://www.automate.org/robotics/blogs/robots-manufacturing-jobs'
   },
   {
     slug: 'preventive-maintenance-automation',
@@ -135,10 +164,59 @@ function formatBlogDate(dateString) {
   return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 }
 
+function parseNewsDate(dateString) {
+  if (!dateString) return 'Latest';
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return 'Latest';
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function normalizeNewsItem(item, fallbackSource = 'Industrial News') {
+  return {
+    title: stripHtml(item.title || 'Industrial automation update'),
+    source: stripHtml(item.source || item.author || fallbackSource),
+    date: parseNewsDate(item.pubDate || item.published || item.date),
+    excerpt: stripHtml(item.description || item.content || item.excerpt || 'Read the latest industrial automation news and manufacturing technology update.').slice(0, 180),
+    url: item.link || item.guid || item.url || '#',
+  };
+}
+
 export default function App() {
   const [page, setPage] = useState('home');
   const [mobileOpen, setMobileOpen] = useState(false);
   const [cmsBlogPosts, setCmsBlogPosts] = useState(fallbackBlogPosts);
+  const [industrialNews, setIndustrialNews] = useState(fallbackIndustrialNews);
+
+  useEffect(() => {
+    const env = import.meta?.env || {};
+    const customNewsFeed = env.VITE_INDUSTRIAL_NEWS_RSS;
+    const feeds = customNewsFeed ? [customNewsFeed] : INDUSTRIAL_NEWS_FEEDS;
+
+    Promise.allSettled(
+      feeds.map((feedUrl) =>
+        fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`)
+          .then((response) => {
+            if (!response.ok) throw new Error('News feed request failed');
+            return response.json();
+          })
+      )
+    )
+      .then((results) => {
+        const items = results
+          .filter((result) => result.status === 'fulfilled')
+          .flatMap((result) => {
+            const source = result.value?.feed?.title || 'Industrial News';
+            return (result.value?.items || []).map((item) => normalizeNewsItem(item, source));
+          })
+          .filter((item) => item.title && item.url && item.url !== '#')
+          .slice(0, 6);
+
+        if (items.length > 0) {
+          setIndustrialNews(items);
+        }
+      })
+      .catch(() => setIndustrialNews(fallbackIndustrialNews));
+  }, []);
 
   useEffect(() => {
     const env = import.meta?.env || {};
@@ -219,7 +297,7 @@ export default function App() {
         {page === 'industries' && <IndustriesPage />}
         {page === 'about' && <AboutPage />}
         {page === 'caseStudies' && <CaseStudiesPage />}
-        {page === 'blog' && <BlogPage posts={cmsBlogPosts} />}
+        {page === 'blog' && <BlogPage posts={cmsBlogPosts} news={industrialNews} />}
         {page === 'contact' && <ContactPage />}
       </main>
     </div>
@@ -426,22 +504,63 @@ function CaseStudiesPage() {
   return <section style={lightSection}><div style={{ ...contentWrap, display: 'grid', gap: 24, gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>{caseStudies.map((item) => <div key={item.title} style={whiteCard}><div style={sectionEyebrowLight}>Project Highlight</div><h3 style={{ ...cardTitle, textTransform: 'uppercase' }}>{item.title}</h3><p style={cardText}>{item.text}</p></div>)}</div></section>;
 }
 
-function BlogPage({ posts }) {
+function BlogPage({ posts, news }) {
   return (
     <section style={lightSection}>
-      <div style={{ ...contentWrap, display: 'grid', gap: 24, gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
-        {posts.map((post) => (
-          <div key={post.slug} style={whiteCard}>
-            <div style={sectionEyebrowLight}>{post.date}</div>
-            <h3 style={{ ...cardTitle, marginTop: 14 }}>{post.title}</h3>
-            <p style={cardText}>{post.excerpt}</p>
-            <a href={post.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-              <button style={{ ...ctaHeader, marginTop: 20, padding: '14px 22px', fontSize: 16 }}>
-                Read More
-              </button>
-            </a>
+      <div style={contentWrap}>
+        <div style={{ maxWidth: 900, margin: '0 auto 28px', textAlign: 'center' }}>
+          <div style={sectionEyebrowLight}>Industry Insights</div>
+          <h2 style={sectionTitleLight}>Automation News & Resources</h2>
+          <p style={{ ...sectionTextLight, marginTop: 16 }}>
+            Expert articles, automation trends, and automatically updated industrial news curated for manufacturers, controls engineers, and automation leaders.
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gap: 24, gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
+          {posts.map((post) => (
+            <div key={post.slug} style={{ ...whiteCard, borderTop: '4px solid #2563eb', display: 'flex', flexDirection: 'column', minHeight: 430 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                <div style={sectionEyebrowLight}>Automation Trends</div>
+                <div style={{ fontSize: 12, color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>{post.date}</div>
+              </div>
+              <h3 style={{ ...cardTitle, marginTop: 14 }}>{post.title}</h3>
+              <p style={cardText}>{post.excerpt}</p>
+              <div style={{ marginTop: 'auto', paddingTop: 20 }}>
+                <a href={post.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                  <button style={{ ...ctaHeader, padding: '14px 22px', fontSize: 16 }}>Read More</button>
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ marginTop: 56 }}>
+          <div style={{ maxWidth: 900, margin: '0 auto 24px', textAlign: 'center' }}>
+            <div style={sectionEyebrowLight}>Automated Industrial News Feed</div>
+            <h2 style={{ ...sectionTitleLight, fontSize: 'clamp(30px, 4vw, 44px)' }}>Latest Industry Headlines</h2>
+            <p style={{ ...sectionTextLight, marginTop: 12 }}>
+              This section can pull from RSS sources automatically. If a feed is unavailable, trusted fallback links remain visible.
+            </p>
           </div>
-        ))}
+
+          <div style={{ display: 'grid', gap: 18, gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
+            {news.map((item, index) => (
+              <div key={`${item.title}-${index}`} style={{ ...whiteCard, padding: 24, display: 'flex', flexDirection: 'column', minHeight: 320 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+                  <div style={{ ...sectionEyebrowLight, fontSize: 14 }}>{item.source}</div>
+                  <div style={{ fontSize: 12, color: '#64748b', fontWeight: 800, textTransform: 'uppercase' }}>{item.date}</div>
+                </div>
+                <h3 style={{ ...cardTitle, fontSize: 22, marginTop: 16 }}>{item.title}</h3>
+                <p style={{ ...cardText, fontSize: 16 }}>{item.excerpt}</p>
+                <div style={{ marginTop: 'auto', paddingTop: 18 }}>
+                  <a href={item.url} target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                    Read Article →
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -473,7 +592,7 @@ function ContactBand({ setPage }) {
 const globalCss = `
   * { box-sizing: border-box; }
   html, body, #root { margin: 0; min-height: 100%; }
-  body { margin: 0; background: ${colors.page}; }
+  body { margin: 0; background: ${colors.page}; font-size: 90%; }
   button, input, textarea { font: inherit; }
   a { text-decoration: none; }
   @media (max-width: 1080px) {
@@ -495,7 +614,7 @@ const globalCss = `
 const containerRow = { width: '100%', maxWidth: 1536, margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 20, padding: '16px 24px' };
 const contentWrap = { width: '100%', maxWidth: 1536, margin: '0 auto' };
 const brandButton = { background: 'transparent', border: 0, cursor: 'pointer', padding: 0, textAlign: 'left' };
-const brandTitle = { fontSize: 'clamp(30px, 4.5vw, 56px)', fontWeight: 300, letterSpacing: '-0.03em', color: colors.white };
+const brandTitle = { fontSize: 'clamp(24px, 3.5vw, 44px)', fontWeight: 300, letterSpacing: '-0.03em', color: colors.white };
 const brandSub = { fontSize: 'clamp(14px, 1.8vw, 22px)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.22em', color: colors.blue, marginTop: 8 };
 const ctaHeader = { background: colors.yellow, color: '#111827', border: 0, borderRadius: 18, padding: '16px 28px', fontSize: 18, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.04em', cursor: 'pointer', boxShadow: '0 12px 30px rgba(0,0,0,0.15)' };
 const iconButton = { display: 'none', alignItems: 'center', justifyContent: 'center', gap: 8, background: 'rgba(255,255,255,0.06)', border: `1px solid ${colors.borderLight}`, color: colors.white, minWidth: 92, height: 48, padding: '0 14px', borderRadius: 14, cursor: 'pointer', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.04em' };
@@ -506,7 +625,7 @@ const heroOverlay = { position: 'absolute', inset: 0, background: 'linear-gradie
 const heroOverlay2 = { position: 'absolute', inset: 0, background: 'radial-gradient(circle at 18% 30%, rgba(7,41,93,0.50), transparent 34%)' };
 const heroInner = { width: '100%', maxWidth: 1536, margin: '0 auto', minHeight: 760, display: 'grid', alignItems: 'center', padding: '48px 24px' };
 const pill = { display: 'inline-flex', alignItems: 'center', gap: 8, borderRadius: 999, border: '1px solid rgba(147,197,253,0.2)', background: 'rgba(96,165,250,0.1)', color: '#bfdbfe', padding: '10px 16px', fontSize: 12, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.28em' };
-const heroTitle = { margin: '22px 0 0', fontSize: 'clamp(58px, 9vw, 100px)', lineHeight: 0.92, textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.05em' };
+const heroTitle = { margin: '22px 0 0', fontSize: 'clamp(48px, 8vw, 82px)', lineHeight: 0.92, textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.05em' };
 const heroText = { marginTop: 28, maxWidth: 640, fontSize: 'clamp(22px, 2.2vw, 26px)', lineHeight: 1.65, color: 'rgba(255,255,255,0.9)' };
 const heroButtons = { display: 'flex', flexWrap: 'wrap', gap: 20, marginTop: 36 };
 const primaryButton = { display: 'inline-flex', alignItems: 'center', gap: 12, borderRadius: 18, border: 0, background: colors.yellow, color: '#111827', padding: '20px 30px', fontSize: 20, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.04em', cursor: 'pointer' };
@@ -521,8 +640,8 @@ const featureTitleDark = { fontSize: 18, fontWeight: 900, textTransform: 'upperc
 const featureTextDark = { margin: '10px 0 0', fontSize: 18, lineHeight: 1.8, color: 'rgba(255,255,255,0.85)' };
 const sectionEyebrowDark = { fontSize: 20, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.18em', color: colors.yellow };
 const sectionEyebrowLight = { fontSize: 18, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.22em', color: '#eab308' };
-const sectionTitleLight = { margin: '18px 0 0', fontSize: 'clamp(44px, 5vw, 64px)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.08, letterSpacing: '-0.04em', color: colors.textDark };
-const sectionTitleLeft = { fontSize: 'clamp(42px, 5vw, 58px)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, letterSpacing: '-0.04em', color: colors.textDark, margin: 0 };
+const sectionTitleLight = { margin: '18px 0 0', fontSize: 'clamp(36px, 4.5vw, 52px)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.08, letterSpacing: '-0.04em', color: colors.textDark };
+const sectionTitleLeft = { fontSize: 'clamp(34px, 4.5vw, 48px)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, letterSpacing: '-0.04em', color: colors.textDark, margin: 0 };
 const sectionTextLight = { margin: '30px auto 0', maxWidth: 980, fontSize: 26, lineHeight: 1.7, color: colors.textMuted };
 const darkHighlightCard = { borderRadius: 30, border: `1px solid ${colors.borderLight}`, background: 'rgba(255,255,255,0.05)', padding: 32, boxShadow: '0 20px 40px rgba(0,0,0,0.10)' };
 const darkIconWrap = { display: 'inline-flex', padding: 16, borderRadius: 18, border: '1px solid rgba(250,204,21,0.2)', background: 'rgba(250,204,21,0.1)', color: colors.yellow };
@@ -537,8 +656,8 @@ const cardsGrid = { width: '100%', maxWidth: 1500, margin: '0 auto', display: 'g
 const whiteCard = { borderRadius: 28, border: `1px solid ${colors.borderDark}`, background: colors.white, padding: 32, boxShadow: '0 8px 24px rgba(15,23,42,0.06)' };
 const blueBadge = { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 72, height: 72, borderRadius: 18, background: '#eff6ff', color: '#2563eb' };
 const industryIconWrap = { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 48, height: 48, flex: '0 0 48px', color: '#2563eb' };
-const cardTitle = { margin: '24px 0 0', fontSize: 28, fontWeight: 900, color: colors.textDark };
-const cardText = { margin: '16px 0 0', fontSize: 22, lineHeight: 1.75, color: colors.textMuted };
+const cardTitle = { margin: '24px 0 0', fontSize: 24, fontWeight: 900, color: colors.textDark };
+const cardText = { margin: '16px 0 0', fontSize: 18, lineHeight: 1.75, color: colors.textMuted };
 const splitPanel = { width: '100%', maxWidth: 1500, margin: '0 auto', background: colors.white, borderRadius: 32, padding: 40, boxShadow: '0 8px 24px rgba(15,23,42,0.06)' };
 const leftLead = { marginTop: 26, fontSize: 24, lineHeight: 1.75, color: colors.textMuted, maxWidth: 800 };
 const chipsGrid = { marginTop: 28, display: 'grid', gap: 18, gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' };

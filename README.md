@@ -1,13 +1,17 @@
-# RCB Automation Premium Vercel Site
+# RCB Automation Current Canvas Deployment
 
 Deploy settings:
 - Framework Preset: Vite
 - Build Command: npm run build
 - Output Directory: dist
 
-Video:
-- Add your production video at public/videos/marine-automation.mp4
+Includes:
+- Current canvas website
+- Smaller text sizing
+- Blog page with automated industrial news feed
+- Industries page video removed
+- About page video retained
+- /docs redirect to homepage
 
-Optional WordPress blog environment variables:
-- VITE_WORDPRESS_SITE_URL=https://yourwordpresssite.com
-- VITE_WORDPRESS_CATEGORY_ID=optional_category_id
+Optional environment variable:
+VITE_INDUSTRIAL_NEWS_RSS=https://your-feed-url.com/rss
