@@ -138,7 +138,7 @@ const colors = {
   yellow: '#facc15',
   white: '#ffffff',
   textDark: '#081224',
-  textMuted: '#64748b',
+  textMuted: '#334155',
   borderLight: 'rgba(255,255,255,0.1)',
   borderDark: 'rgba(15,23,42,0.12)',
 };
@@ -344,11 +344,16 @@ function Header({ page, setPage, mobileOpen, setMobileOpen }) {
     <header style={{ position: 'sticky', top: 0, zIndex: 50, borderBottom: `1px solid ${colors.borderLight}`, background: colors.navy, color: colors.white }}>
       <div style={containerRow}>
         <button onClick={() => setPage('home')} style={brandButton}>
-          <img
-            src="/rcb-logo.png"
-            alt="RCB Automation Logo"
-            style={{ height: 88, width: 'auto', maxWidth: 460, display: 'block', objectFit: 'contain' }}
-          />
+          <div style={{ display:'flex', flexDirection:'column', alignItems:'center', lineHeight:1 }}>
+            <div style={{ fontSize: 62, fontWeight: 900, letterSpacing:'0.02em', textTransform:'uppercase', fontFamily:'Trebuchet MS, Verdana, Arial Black, sans-serif', width:'100%', textAlign:'center' }}>
+              <span style={{ color:'#1d4ed8' }}>RCB</span>{' '}<span style={{ color:'#ffffff' }}>Automation</span>
+            </div>
+            <div style={{ display:'flex', alignItems:'center', gap:12, marginTop:6 }}>
+              <div style={{ width:112, height:2, background:'#1d4ed8' }} />
+              <span style={{ fontSize:18, fontWeight:800, letterSpacing:'0.24em', textTransform:'uppercase', color:'#60a5fa' }}>Automated Solutions</span>
+              <div style={{ width:112, height:2, background:'#1d4ed8' }} />
+            </div>
+          </div>
         </button>
         <nav className="desktop-nav" style={{ display: 'flex', gap: 28, alignItems: 'center', flexWrap: 'wrap' }}>
           {navItems.map(([key, label]) => (
@@ -419,7 +424,7 @@ function PageIntro({ page }) {
     <section style={{ background: colors.navySoft, color: colors.white, padding: '72px 24px' }}>
       <div style={contentWrap}>
         <div style={sectionEyebrowDark}>RCB Automation</div>
-        <h1 style={{ fontSize: 'clamp(46px, 6vw, 64px)', margin: '18px 0 0', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.03em' }}>{pages[page]}</h1>
+        <h1 style={{ fontSize: 'clamp(30px, 4.2vw, 42px)', margin: '18px 0 0', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.03em' }}>{pages[page]}</h1>
         <p style={{ maxWidth: 950, marginTop: 24, fontSize: 24, lineHeight: 1.7, color: 'rgba(255,255,255,0.8)' }}>
           {page === 'solutions' && 'Explore custom automation systems, robotic integration, controls, and production-ready solutions built for modern manufacturing.'}
           {page === 'services' && 'From design and programming to commissioning and support, RCB Automation delivers services that move projects from concept to production.'}
@@ -592,7 +597,7 @@ function ContactBand({ setPage }) {
 const globalCss = `
   * { box-sizing: border-box; }
   html, body, #root { margin: 0; min-height: 100%; }
-  body { margin: 0; background: ${colors.page}; font-size: 90%; }
+  body { margin: 0; background: ${colors.page}; font-size: 88%; }
   button, input, textarea { font: inherit; }
   a { text-decoration: none; }
   @media (max-width: 1080px) {
@@ -613,7 +618,7 @@ const globalCss = `
 
 const containerRow = { width: '100%', maxWidth: 1536, margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 20, padding: '16px 24px' };
 const contentWrap = { width: '100%', maxWidth: 1536, margin: '0 auto' };
-const brandButton = { background: 'transparent', border: 0, cursor: 'pointer', padding: 0, textAlign: 'left', display: 'flex', alignItems: 'center' };
+const brandButton = { background: 'transparent', border: 0, cursor: 'pointer', padding: 0, textAlign: 'center' };
 const brandTitle = { fontSize: 'clamp(24px, 3.5vw, 44px)', fontWeight: 300, letterSpacing: '-0.03em', color: colors.white };
 const brandSub = { fontSize: 'clamp(14px, 1.8vw, 22px)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.22em', color: colors.blue, marginTop: 8 };
 const ctaHeader = { background: colors.yellow, color: '#111827', border: 0, borderRadius: 18, padding: '16px 28px', fontSize: 18, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.04em', cursor: 'pointer', boxShadow: '0 12px 30px rgba(0,0,0,0.15)' };
@@ -661,7 +666,7 @@ const cardText = { margin: '16px 0 0', fontSize: 18, lineHeight: 1.75, color: co
 const splitPanel = { width: '100%', maxWidth: 1500, margin: '0 auto', background: colors.white, borderRadius: 32, padding: 40, boxShadow: '0 8px 24px rgba(15,23,42,0.06)' };
 const leftLead = { marginTop: 26, fontSize: 24, lineHeight: 1.75, color: colors.textMuted, maxWidth: 800 };
 const chipsGrid = { marginTop: 28, display: 'grid', gap: 18, gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' };
-const chipCard = { borderRadius: 18, border: `1px solid ${colors.borderDark}`, background: '#f8fafc', padding: '18px 20px', fontSize: 22, fontWeight: 700, color: '#111827' };
+const chipCard = { borderRadius: 20, border: '2px solid rgba(37,99,235,0.18)', background: 'linear-gradient(180deg,#ffffff 0%,#f8fbff 100%)', padding: '22px 24px', fontSize: 16, fontWeight: 800, color: '#081224', boxShadow: '0 12px 28px rgba(37,99,235,0.08)', transition: 'all .2s ease' };
 const contactShell = { width: '100%', maxWidth: 1500, margin: '0 auto', borderRadius: 36, border: `1px solid ${colors.borderLight}`, background: 'linear-gradient(90deg,#07142c 0%,#0b1831 45%,#0b1730 100%)', padding: 24, boxShadow: '0 24px 60px rgba(0,0,0,0.3)', display: 'grid', gap: 32, gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' };
 const contactPill = { display: 'inline-flex', borderRadius: 999, border: `1px solid ${colors.borderLight}`, background: 'rgba(255,255,255,0.05)', padding: '12px 20px', fontSize: 14, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.22em', color: '#bfdbfe' };
 const contactTitle = { margin: '26px 0 0', maxWidth: 560, fontSize: 'clamp(48px, 6vw, 76px)', fontWeight: 900, lineHeight: 0.96, letterSpacing: '-0.05em', color: colors.white };
