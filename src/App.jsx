@@ -344,7 +344,7 @@ function Header({ page, setPage, mobileOpen, setMobileOpen }) {
     <header style={{ position: 'sticky', top: 0, zIndex: 50, borderBottom: `1px solid ${colors.borderLight}`, background: 'rgba(3,11,24,0.96)', color: colors.white, backdropFilter: 'blur(14px)' }}>
       <div style={containerRow}>
         <button onClick={() => setPage('home')} style={brandButton}>
-          <img src="/rcb-logo.png" alt="RCB Automation Logo" style={{ height: 95, width: 95, maxWidth: 420, display: "block", objectFit: "contain", filter: "drop-shadow(0 10px 24px rgba(0,0,0,0.35))" }} />
+          <img src="/rcb-logo.png" alt="RCB Automation Logo" style={{ height: 95, width: 5, maxWidth: 420, display: "block", objectFit: "contain", filter: "drop-shadow(0 10px 24px rgba(0,0,0,0.35))" }} />
         </button>
         <nav className="desktop-nav" style={{ display: 'flex', gap: 28, alignItems: 'center', flexWrap: 'wrap' }}>
           {navItems.map(([key, label]) => (
