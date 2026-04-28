@@ -1,4 +1,4 @@
-# RCB Automation Current Deployment
+# RCB Automation New Logo Deployment
 
 Deploy settings:
 - Framework Preset: Vite
@@ -6,17 +6,8 @@ Deploy settings:
 - Output Directory: dist
 
 Included:
-- Current canvas site styling
-- Smaller page intro / Solutions text
-- Building Products removed from Industries
-- Industries page video removed
-- About page video retained
-- Blog page with automated industrial news support
-- Updated Automate.org robotics article link
-- /docs redirects to homepage
+- New uploaded logo copied to public/rcb-logo.png
+- Header wired to /rcb-logo.png
+- Vercel /docs redirect included
 
-Optional environment variable:
-VITE_INDUSTRIAL_NEWS_RSS=https://your-feed-url.com/rss
-
-GitHub upload:
-Upload the CONTENTS of this ZIP to your repository root, not the ZIP file itself.
+Upload the CONTENTS of this ZIP to your GitHub repository root.
