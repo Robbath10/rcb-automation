@@ -341,14 +341,14 @@ function Header({ page, setPage, mobileOpen, setMobileOpen }) {
   ];
 
   return (
-    <header style={{ position: 'sticky', top: 0, zIndex: 50, borderBottom: `1px solid ${colors.borderLight}`, background: colors.navy, color: colors.white }}>
+    <header style={{ position: 'sticky', top: 0, zIndex: 50, borderBottom: `1px solid ${colors.borderLight}`, background: 'rgba(3,11,24,0.96)', color: colors.white, backdropFilter: 'blur(14px)' }}>
       <div style={containerRow}>
         <button onClick={() => setPage('home')} style={brandButton}>
-          <img src="/rcb-logo.png" alt="RCB Automation Logo" style={{ height: 145, width: "auto", maxWidth: 680, display: "block", objectFit: "contain" }} />
+          <img src="/rcb-logo.png" alt="RCB Automation Logo" style={{ height: 82, width: "auto", maxWidth: 420, display: "block", objectFit: "contain", filter: "drop-shadow(0 10px 24px rgba(0,0,0,0.35))" }} />
         </button>
         <nav className="desktop-nav" style={{ display: 'flex', gap: 28, alignItems: 'center', flexWrap: 'wrap' }}>
           {navItems.map(([key, label]) => (
-            <button key={key} onClick={() => setPage(key)} style={{ background: 'transparent', border: 0, color: page === key ? '#fde68a' : colors.white, borderBottom: page === key ? `4px solid ${colors.yellow}` : '4px solid transparent', padding: '0 0 8px', fontSize: 15, fontWeight: 800, letterSpacing: '0.04em', textTransform: 'uppercase', cursor: 'pointer' }}>{label}</button>
+            <button key={key} onClick={() => setPage(key)} style={{ background: 'transparent', border: 0, color: page === key ? '#fde68a' : colors.white, borderBottom: page === key ? `4px solid ${colors.yellow}` : '4px solid transparent', padding: '0 0 8px', fontSize: 14, fontWeight: 900, letterSpacing: '0.05em', textTransform: 'uppercase', cursor: 'pointer' }}>{label}</button>
           ))}
         </nav>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -591,6 +591,9 @@ const globalCss = `
   body { margin: 0; background: ${colors.page}; font-size: 90%; }
   button, input, textarea { font: inherit; }
   a { text-decoration: none; }
+  button { transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease; }
+  button:hover { transform: translateY(-1px); }
+  .desktop-nav button:hover { color: #fde68a !important; }
   @media (max-width: 1080px) {
     .desktop-nav { display: none !important; }
     .mobile-nav-toggle { display: inline-flex !important; }
@@ -607,25 +610,25 @@ const globalCss = `
   }
 `;
 
-const containerRow = { width: '100%', maxWidth: 1536, margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 20, padding: '16px 24px' };
+const containerRow = { width: '100%', maxWidth: 1536, margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 24, padding: '10px 28px' };
 const contentWrap = { width: '100%', maxWidth: 1536, margin: '0 auto' };
-const brandButton = { background: 'transparent', border: 0, cursor: 'pointer', padding: 0, textAlign: 'left', display: 'flex', alignItems: 'center' };
+const brandButton = { background: 'transparent', border: 0, cursor: 'pointer', padding: 0, textAlign: 'left', display: 'flex', alignItems: 'center', transition: 'transform .2s ease' };
 const brandTitle = { fontSize: 'clamp(24px, 3.5vw, 44px)', fontWeight: 300, letterSpacing: '-0.03em', color: colors.white };
 const brandSub = { fontSize: 'clamp(14px, 1.8vw, 22px)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.22em', color: colors.blue, marginTop: 8 };
-const ctaHeader = { background: colors.yellow, color: '#111827', border: 0, borderRadius: 18, padding: '16px 28px', fontSize: 18, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.04em', cursor: 'pointer', boxShadow: '0 12px 30px rgba(0,0,0,0.15)' };
+const ctaHeader = { background: colors.yellow, color: '#111827', border: 0, borderRadius: 16, padding: '15px 26px', fontSize: 14, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.06em', cursor: 'pointer', boxShadow: '0 18px 36px rgba(250,204,21,0.18)' };
 const iconButton = { display: 'none', alignItems: 'center', justifyContent: 'center', gap: 8, background: 'rgba(255,255,255,0.06)', border: `1px solid ${colors.borderLight}`, color: colors.white, minWidth: 92, height: 48, padding: '0 14px', borderRadius: 14, cursor: 'pointer', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.04em' };
 const mobilePanel = { display: 'grid', gap: 10, padding: '14px 24px 24px', background: colors.navy, borderTop: `1px solid ${colors.borderLight}`, boxShadow: '0 18px 40px rgba(0,0,0,0.28)' };
 const mobileNavItem = { background: 'transparent', border: `1px solid ${colors.borderLight}`, color: colors.white, borderRadius: 14, padding: '14px 16px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', textAlign: 'left', cursor: 'pointer' };
 const heroImage = { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.95 };
 const heroOverlay = { position: 'absolute', inset: 0, background: 'linear-gradient(90deg,rgba(1,6,16,0.96) 0%,rgba(1,6,16,0.88) 28%,rgba(1,6,16,0.42) 58%,rgba(1,6,16,0.18) 100%)' };
 const heroOverlay2 = { position: 'absolute', inset: 0, background: 'radial-gradient(circle at 18% 30%, rgba(7,41,93,0.50), transparent 34%)' };
-const heroInner = { width: '100%', maxWidth: 1536, margin: '0 auto', minHeight: 760, display: 'grid', alignItems: 'center', padding: '48px 24px' };
+const heroInner = { width: '100%', maxWidth: 1536, margin: '0 auto', minHeight: 700, display: 'grid', alignItems: 'center', padding: '56px 28px 48px' };
 const pill = { display: 'inline-flex', alignItems: 'center', gap: 8, borderRadius: 999, border: '1px solid rgba(147,197,253,0.2)', background: 'rgba(96,165,250,0.1)', color: '#bfdbfe', padding: '10px 16px', fontSize: 12, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.28em' };
-const heroTitle = { margin: '22px 0 0', fontSize: 'clamp(48px, 8vw, 82px)', lineHeight: 0.92, textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.05em' };
-const heroText = { marginTop: 28, maxWidth: 640, fontSize: 'clamp(22px, 2.2vw, 26px)', lineHeight: 1.65, color: 'rgba(255,255,255,0.9)' };
+const heroTitle = { margin: '22px 0 0', fontSize: 'clamp(40px, 6.5vw, 68px)', lineHeight: 0.93, textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.045em' };
+const heroText = { marginTop: 28, maxWidth: 680, fontSize: 'clamp(18px, 1.65vw, 22px)', lineHeight: 1.6, color: 'rgba(255,255,255,0.92)' };
 const heroButtons = { display: 'flex', flexWrap: 'wrap', gap: 20, marginTop: 36 };
-const primaryButton = { display: 'inline-flex', alignItems: 'center', gap: 12, borderRadius: 18, border: 0, background: colors.yellow, color: '#111827', padding: '20px 30px', fontSize: 20, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.04em', cursor: 'pointer' };
-const secondaryButton = { display: 'inline-flex', alignItems: 'center', gap: 12, borderRadius: 18, border: '2px solid rgba(255,255,255,0.75)', background: 'rgba(0,0,0,0.12)', color: colors.white, padding: '20px 30px', fontSize: 20, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.04em', cursor: 'pointer' };
+const primaryButton = { display: 'inline-flex', alignItems: 'center', gap: 12, borderRadius: 16, border: 0, background: colors.yellow, color: '#111827', padding: '18px 28px', fontSize: 14, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.06em', cursor: 'pointer', boxShadow: '0 18px 36px rgba(250,204,21,0.18)' };
+const secondaryButton = { display: 'inline-flex', alignItems: 'center', gap: 12, borderRadius: 16, border: '1px solid rgba(255,255,255,0.65)', background: 'rgba(0,0,0,0.16)', color: colors.white, padding: '18px 28px', fontSize: 14, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.06em', cursor: 'pointer', backdropFilter: 'blur(8px)' };
 const statsGrid = { display: 'grid', gap: 16, gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', marginTop: 36, maxWidth: 640 };
 const statCard = { borderRadius: 22, border: `1px solid ${colors.borderLight}`, background: 'rgba(255,255,255,0.1)', padding: '20px 18px', backdropFilter: 'blur(10px)' };
 const statValue = { fontSize: 26, fontWeight: 900, color: colors.white };
@@ -649,7 +652,7 @@ const lightFeatureTitle = { fontSize: 22, fontWeight: 800, color: '#111827' };
 const lightFeatureText = { margin: '12px 0 0', fontSize: 22, lineHeight: 1.65, color: colors.textMuted };
 const lightSection = { background: '#f3f4f6', padding: '80px 24px' };
 const cardsGrid = { width: '100%', maxWidth: 1500, margin: '0 auto', display: 'grid', gap: 24, gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' };
-const whiteCard = { borderRadius: 28, border: `1px solid ${colors.borderDark}`, background: colors.white, padding: 32, boxShadow: '0 8px 24px rgba(15,23,42,0.06)' };
+const whiteCard = { borderRadius: 28, border: `1px solid ${colors.borderDark}`, background: colors.white, padding: 32, boxShadow: '0 18px 44px rgba(15,23,42,0.08)' };
 const blueBadge = { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 72, height: 72, borderRadius: 18, background: '#eff6ff', color: '#2563eb' };
 const industryIconWrap = { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 48, height: 48, flex: '0 0 48px', color: '#2563eb' };
 const cardTitle = { margin: '24px 0 0', fontSize: 24, fontWeight: 900, color: colors.textDark };
@@ -657,7 +660,7 @@ const cardText = { margin: '16px 0 0', fontSize: 18, lineHeight: 1.75, color: co
 const splitPanel = { width: '100%', maxWidth: 1500, margin: '0 auto', background: colors.white, borderRadius: 32, padding: 40, boxShadow: '0 8px 24px rgba(15,23,42,0.06)' };
 const leftLead = { marginTop: 26, fontSize: 24, lineHeight: 1.75, color: colors.textMuted, maxWidth: 800 };
 const chipsGrid = { marginTop: 28, display: 'grid', gap: 18, gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' };
-const chipCard = { borderRadius: 18, border: `1px solid ${colors.borderDark}`, background: '#f8fafc', padding: '18px 20px', fontSize: 22, fontWeight: 700, color: '#111827' };
+const chipCard = { borderRadius: 20, border: '1px solid rgba(37,99,235,0.20)', background: 'linear-gradient(180deg,#ffffff 0%,#f8fbff 100%)', padding: '22px 24px', fontSize: 16, fontWeight: 850, color: '#081224', boxShadow: '0 16px 34px rgba(37,99,235,0.10)', transition: 'all .2s ease' };
 const contactShell = { width: '100%', maxWidth: 1500, margin: '0 auto', borderRadius: 36, border: `1px solid ${colors.borderLight}`, background: 'linear-gradient(90deg,#07142c 0%,#0b1831 45%,#0b1730 100%)', padding: 24, boxShadow: '0 24px 60px rgba(0,0,0,0.3)', display: 'grid', gap: 32, gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' };
 const contactPill = { display: 'inline-flex', borderRadius: 999, border: `1px solid ${colors.borderLight}`, background: 'rgba(255,255,255,0.05)', padding: '12px 20px', fontSize: 14, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.22em', color: '#bfdbfe' };
 const contactTitle = { margin: '26px 0 0', maxWidth: 560, fontSize: 'clamp(48px, 6vw, 76px)', fontWeight: 900, lineHeight: 0.96, letterSpacing: '-0.05em', color: colors.white };
