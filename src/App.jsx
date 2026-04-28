@@ -341,10 +341,10 @@ function Header({ page, setPage, mobileOpen, setMobileOpen }) {
   ];
 
   return (
-    <header style={{ position: 'sticky', top: 0, zIndex: 50, borderBottom: `1px solid ${colors.borderLight}`, background: 'rgba(3,11,24,0.96)', color: colors.white, backdropFilter: 'blur(14px)' }}>
+    <header style={{ position: 'sticky', top: 0, zIndex: 50, borderBottom: `1px solid ${colors.borderLight}`, background: 'linear-gradient(90deg,rgba(3,11,24,0.98),rgba(4,15,30,0.98))', color: colors.white, backdropFilter: 'blur(18px)' }}>
       <div style={containerRow}>
         <button onClick={() => setPage('home')} style={brandButton}>
-          <img src="/rcb-logo.png" alt="RCB Automation Logo" style={{ height: 82, width: "auto", maxWidth: 420, display: "block", objectFit: "contain", filter: "drop-shadow(0 10px 24px rgba(0,0,0,0.35))" }} />
+          <img src="/rcb-logo.png" alt="RCB Automation Logo" style={{ height: 74, width: "auto", maxWidth: 380, display: "block", objectFit: "contain", filter: "drop-shadow(0 12px 26px rgba(0,0,0,0.42))" }} />
         </button>
         <nav className="desktop-nav" style={{ display: 'flex', gap: 28, alignItems: 'center', flexWrap: 'wrap' }}>
           {navItems.map(([key, label]) => (
@@ -594,6 +594,14 @@ const globalCss = `
   button { transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease; }
   button:hover { transform: translateY(-1px); }
   .desktop-nav button:hover { color: #fde68a !important; }
+  img { user-select: none; }
+  @keyframes ultraFadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  main section { animation: ultraFadeUp .55s ease both; }
+  button:hover { transform: translateY(-2px); }
+  button:active { transform: translateY(0); }
   @media (max-width: 1080px) {
     .desktop-nav { display: none !important; }
     .mobile-nav-toggle { display: inline-flex !important; }
@@ -610,7 +618,7 @@ const globalCss = `
   }
 `;
 
-const containerRow = { width: '100%', maxWidth: 1536, margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 24, padding: '10px 28px' };
+const containerRow = { width: '100%', maxWidth: 1536, margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 24, padding: '8px 30px' };
 const contentWrap = { width: '100%', maxWidth: 1536, margin: '0 auto' };
 const brandButton = { background: 'transparent', border: 0, cursor: 'pointer', padding: 0, textAlign: 'left', display: 'flex', alignItems: 'center', transition: 'transform .2s ease' };
 const brandTitle = { fontSize: 'clamp(24px, 3.5vw, 44px)', fontWeight: 300, letterSpacing: '-0.03em', color: colors.white };
@@ -620,20 +628,20 @@ const iconButton = { display: 'none', alignItems: 'center', justifyContent: 'cen
 const mobilePanel = { display: 'grid', gap: 10, padding: '14px 24px 24px', background: colors.navy, borderTop: `1px solid ${colors.borderLight}`, boxShadow: '0 18px 40px rgba(0,0,0,0.28)' };
 const mobileNavItem = { background: 'transparent', border: `1px solid ${colors.borderLight}`, color: colors.white, borderRadius: 14, padding: '14px 16px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', textAlign: 'left', cursor: 'pointer' };
 const heroImage = { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.95 };
-const heroOverlay = { position: 'absolute', inset: 0, background: 'linear-gradient(90deg,rgba(1,6,16,0.96) 0%,rgba(1,6,16,0.88) 28%,rgba(1,6,16,0.42) 58%,rgba(1,6,16,0.18) 100%)' };
-const heroOverlay2 = { position: 'absolute', inset: 0, background: 'radial-gradient(circle at 18% 30%, rgba(7,41,93,0.50), transparent 34%)' };
-const heroInner = { width: '100%', maxWidth: 1536, margin: '0 auto', minHeight: 700, display: 'grid', alignItems: 'center', padding: '56px 28px 48px' };
+const heroOverlay = { position: 'absolute', inset: 0, background: 'linear-gradient(90deg,rgba(1,6,16,0.98) 0%,rgba(1,6,16,0.90) 30%,rgba(1,6,16,0.44) 62%,rgba(1,6,16,0.20) 100%)' };
+const heroOverlay2 = { position: 'absolute', inset: 0, background: 'radial-gradient(circle at 18% 30%, rgba(37,99,235,0.30), transparent 34%), linear-gradient(180deg,rgba(0,0,0,0.10) 0%,rgba(0,0,0,0.18) 100%)' };
+const heroInner = { width: '100%', maxWidth: 1536, margin: '0 auto', minHeight: 720, display: 'grid', alignItems: 'center', padding: '84px 30px 56px' };
 const pill = { display: 'inline-flex', alignItems: 'center', gap: 8, borderRadius: 999, border: '1px solid rgba(147,197,253,0.2)', background: 'rgba(96,165,250,0.1)', color: '#bfdbfe', padding: '10px 16px', fontSize: 12, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.28em' };
-const heroTitle = { margin: '22px 0 0', fontSize: 'clamp(40px, 6.5vw, 68px)', lineHeight: 0.93, textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.045em' };
-const heroText = { marginTop: 28, maxWidth: 680, fontSize: 'clamp(18px, 1.65vw, 22px)', lineHeight: 1.6, color: 'rgba(255,255,255,0.92)' };
+const heroTitle = { margin: '22px 0 0', fontSize: 'clamp(40px, 6.2vw, 70px)', lineHeight: 0.94, textTransform: 'uppercase', fontWeight: 950, letterSpacing: '-0.045em', textShadow: '0 18px 40px rgba(0,0,0,0.45)' };
+const heroText = { marginTop: 28, maxWidth: 700, fontSize: 'clamp(18px, 1.55vw, 21px)', lineHeight: 1.62, color: 'rgba(255,255,255,0.94)', textShadow: '0 10px 30px rgba(0,0,0,0.32)' };
 const heroButtons = { display: 'flex', flexWrap: 'wrap', gap: 20, marginTop: 36 };
-const primaryButton = { display: 'inline-flex', alignItems: 'center', gap: 12, borderRadius: 16, border: 0, background: colors.yellow, color: '#111827', padding: '18px 28px', fontSize: 14, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.06em', cursor: 'pointer', boxShadow: '0 18px 36px rgba(250,204,21,0.18)' };
-const secondaryButton = { display: 'inline-flex', alignItems: 'center', gap: 12, borderRadius: 16, border: '1px solid rgba(255,255,255,0.65)', background: 'rgba(0,0,0,0.16)', color: colors.white, padding: '18px 28px', fontSize: 14, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.06em', cursor: 'pointer', backdropFilter: 'blur(8px)' };
+const primaryButton = { display: 'inline-flex', alignItems: 'center', gap: 12, borderRadius: 16, border: 0, background: 'linear-gradient(135deg,#facc15 0%,#fbbf24 100%)', color: '#111827', padding: '18px 30px', fontSize: 14, fontWeight: 950, textTransform: 'uppercase', letterSpacing: '0.07em', cursor: 'pointer', boxShadow: '0 22px 42px rgba(250,204,21,0.22)' };
+const secondaryButton = { display: 'inline-flex', alignItems: 'center', gap: 12, borderRadius: 16, border: '1px solid rgba(255,255,255,0.55)', background: 'rgba(255,255,255,0.06)', color: colors.white, padding: '18px 30px', fontSize: 14, fontWeight: 950, textTransform: 'uppercase', letterSpacing: '0.07em', cursor: 'pointer', backdropFilter: 'blur(12px)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.10)' };
 const statsGrid = { display: 'grid', gap: 16, gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', marginTop: 36, maxWidth: 640 };
-const statCard = { borderRadius: 22, border: `1px solid ${colors.borderLight}`, background: 'rgba(255,255,255,0.1)', padding: '20px 18px', backdropFilter: 'blur(10px)' };
+const statCard = { borderRadius: 22, border: `1px solid ${colors.borderLight}`, background: 'linear-gradient(180deg,rgba(255,255,255,0.14),rgba(255,255,255,0.08))', padding: '20px 18px', backdropFilter: 'blur(14px)', boxShadow: '0 18px 38px rgba(0,0,0,0.20)' };
 const statValue = { fontSize: 26, fontWeight: 900, color: colors.white };
 const statLabel = { marginTop: 6, fontSize: 12, fontWeight: 800, color: 'rgba(255,255,255,0.62)', textTransform: 'uppercase', letterSpacing: '0.22em' };
-const featureStrip = { width: '100%', maxWidth: 1536, margin: '-1px auto 0', display: 'grid', gap: 0, gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', borderTop: `1px solid ${colors.borderLight}`, background: 'rgba(3,19,38,0.95)' };
+const featureStrip = { width: '100%', maxWidth: 1536, margin: '-1px auto 0', display: 'grid', gap: 0, gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', borderTop: `1px solid ${colors.borderLight}`, background: 'linear-gradient(90deg,rgba(3,19,38,0.98),rgba(5,23,44,0.98))', boxShadow: '0 -1px 0 rgba(255,255,255,0.04)' };
 const featureCardDark = { display: 'flex', gap: 20, padding: '30px 28px', borderRight: `1px solid rgba(255,255,255,0.16)` };
 const featureTitleDark = { fontSize: 18, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.04em', color: colors.white };
 const featureTextDark = { margin: '10px 0 0', fontSize: 18, lineHeight: 1.8, color: 'rgba(255,255,255,0.85)' };
@@ -652,7 +660,7 @@ const lightFeatureTitle = { fontSize: 22, fontWeight: 800, color: '#111827' };
 const lightFeatureText = { margin: '12px 0 0', fontSize: 22, lineHeight: 1.65, color: colors.textMuted };
 const lightSection = { background: '#f3f4f6', padding: '80px 24px' };
 const cardsGrid = { width: '100%', maxWidth: 1500, margin: '0 auto', display: 'grid', gap: 24, gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' };
-const whiteCard = { borderRadius: 28, border: `1px solid ${colors.borderDark}`, background: colors.white, padding: 32, boxShadow: '0 18px 44px rgba(15,23,42,0.08)' };
+const whiteCard = { borderRadius: 30, border: `1px solid ${colors.borderDark}`, background: 'linear-gradient(180deg,#ffffff 0%,#fbfdff 100%)', padding: 32, boxShadow: '0 24px 54px rgba(15,23,42,0.09)' };
 const blueBadge = { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 72, height: 72, borderRadius: 18, background: '#eff6ff', color: '#2563eb' };
 const industryIconWrap = { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 48, height: 48, flex: '0 0 48px', color: '#2563eb' };
 const cardTitle = { margin: '24px 0 0', fontSize: 24, fontWeight: 900, color: colors.textDark };
