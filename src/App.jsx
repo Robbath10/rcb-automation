@@ -11,7 +11,7 @@ const fallbackIndustrialNews = [
     source: 'International Federation of Robotics',
     date: 'Latest',
     excerpt: 'Global robotics trends covering AI, humanoid robots, mobile manipulators, digital twins, and new automation opportunities.',
-    url: 'https://ifr.org/ifr-press-releases/news/top-5-global-robotics-trends-2026',
+    url: 'https://www.automate.org/robotics/blogs/robots-manufacturing-jobs',
   },
   {
     title: 'Industrial Automation News and Analysis',
@@ -118,7 +118,6 @@ const industries = [
   'Automotive',
   'Industrial Manufacturing',
   'Food & Beverage',
-  'Building Products',
   'Energy Equipment',
   'Marine Automation',
   'General Industrial Automation',
@@ -345,10 +344,11 @@ function Header({ page, setPage, mobileOpen, setMobileOpen }) {
     <header style={{ position: 'sticky', top: 0, zIndex: 50, borderBottom: `1px solid ${colors.borderLight}`, background: colors.navy, color: colors.white }}>
       <div style={containerRow}>
         <button onClick={() => setPage('home')} style={brandButton}>
-          <div>
-            <div style={brandTitle}>RCB AUTOMATION</div>
-            <div style={brandSub}>Automated Solutions</div>
-          </div>
+          <img
+            src="/rcb-logo.png"
+            alt="RCB Automation Logo"
+            style={{ height: 88, width: 'auto', maxWidth: 460, display: 'block', objectFit: 'contain' }}
+          />
         </button>
         <nav className="desktop-nav" style={{ display: 'flex', gap: 28, alignItems: 'center', flexWrap: 'wrap' }}>
           {navItems.map(([key, label]) => (
@@ -613,7 +613,7 @@ const globalCss = `
 
 const containerRow = { width: '100%', maxWidth: 1536, margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 20, padding: '16px 24px' };
 const contentWrap = { width: '100%', maxWidth: 1536, margin: '0 auto' };
-const brandButton = { background: 'transparent', border: 0, cursor: 'pointer', padding: 0, textAlign: 'left' };
+const brandButton = { background: 'transparent', border: 0, cursor: 'pointer', padding: 0, textAlign: 'left', display: 'flex', alignItems: 'center' };
 const brandTitle = { fontSize: 'clamp(24px, 3.5vw, 44px)', fontWeight: 300, letterSpacing: '-0.03em', color: colors.white };
 const brandSub = { fontSize: 'clamp(14px, 1.8vw, 22px)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.22em', color: colors.blue, marginTop: 8 };
 const ctaHeader = { background: colors.yellow, color: '#111827', border: 0, borderRadius: 18, padding: '16px 28px', fontSize: 18, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.04em', cursor: 'pointer', boxShadow: '0 12px 30px rgba(0,0,0,0.15)' };
