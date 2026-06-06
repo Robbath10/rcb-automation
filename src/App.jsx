@@ -73,7 +73,7 @@ const pages = {
 };
 
 const topFeatures = [
-  { icon: 'target', title: 'Custom Solutions', text: 'Built for your unique manufacturing needs.' },
+  { icon: 'target', title: 'Custom Solutions', text: 'Built for your unique project needs.' },
   { icon: 'trend', title: 'Increase Efficiency', text: 'Streamline operations and maximize output.' },
   { icon: 'shield', title: 'Reliable Performance', text: 'Engineered for reliability and long-term success.' },
   { icon: 'support', title: 'Worldwide Support', text: 'Supporting clients across Texas and beyond.' },
@@ -87,7 +87,7 @@ const lowerFeatures = [
 ];
 
 const eliteHighlights = [
-  { icon: 'badge', title: 'Automation You Can Trust', text: 'Engineered for reliability, maintainability, and long-term plant performance.' },
+  { icon: 'badge', title: 'Automation You Can Trust', text: 'Engineered for reliability, maintainability, and long-term performance.' },
   { icon: 'globe', title: 'Texas Based, Worldwide Support', text: 'Responsive support for industrial clients, upgrades, and ongoing production needs.' },
   { icon: 'cpu', title: 'Controls + Robotics Expertise', text: 'A stronger technical positioning for PLCs, robotic systems, retrofits, and line integration.' },
 ];
@@ -380,7 +380,7 @@ function Hero({ setPage }) {
           <div style={{ maxWidth: 700, paddingTop: 24, position: 'relative', zIndex: 2 }}>
             <div style={pill}>Premium Industrial Automation</div>
             <h1 style={heroTitle}>Automation<br />That Drives<br /><span style={{ color: colors.yellow }}>Performance</span></h1>
-            <p style={heroText}>RCB Automation designs and integrates high-performance automation systems that improve throughput, productivity, and long-term manufacturing reliability.</p>
+            <p style={heroText}>RCB Automation designs and integrates high-performance automation systems that improve throughput, productivity, and long-term reliability.</p>
             <div style={heroButtons}>
               <button onClick={() => setPage('contact')} style={primaryButton}>Request a Quote <Icon name="arrow" size={20} color="#111827" /></button>
               <button onClick={() => setPage('solutions')} style={secondaryButton}>Explore Solutions <Icon name="chevron" size={20} color={colors.white} /></button>
@@ -422,7 +422,7 @@ function PageIntro({ page }) {
           {page === 'industries' && 'We support a wide range of industrial sectors with practical automation solutions tailored to workflow, reliability, and output goals.'}
           {page === 'about' && 'RCB Automation focuses on engineering-driven automation projects that improve performance, reliability, and long-term client success.'}
           {page === 'caseStudies' && 'See examples of how our automation work improves throughput, consistency, controls visibility, and operational results.'}
-          {page === 'blog' && 'Read curated automation, controls, robotics, and manufacturing resources from trusted industry sources.'}
+          {page === 'blog' && 'Read curated automation, controls, robotics, and resources from trusted industry sources.'}
           {page === 'contact' && 'Tell us about your automation project, retrofit, controls issue, or robotic integration needs.'}
         </p>
       </div>
@@ -442,7 +442,7 @@ function WelcomeSection() {
           <div style={sectionEyebrowLight}>Welcome to RCB Automation</div>
           <h2 style={sectionTitleLight}>Your Partner in Automation Success</h2>
           <div style={{ width: 96, height: 4, borderRadius: 99, background: colors.yellow, margin: '18px auto 0' }} />
-          <p style={sectionTextLight}>From concept to implementation and beyond, we provide end-to-end automation solutions that help manufacturers stay competitive in today’s demanding market.</p>
+          <p style={sectionTextLight}>From concept to implementation and beyond, we provide end-to-end automation solutions that help companies stay competitive in today’s demanding market.</p>
         </div>
         <div style={lightFeatureGrid}>{lowerFeatures.map((item) => <FeatureCard key={item.title} item={item} />)}</div>
       </div>
@@ -486,7 +486,7 @@ function AboutPage() {
           <div style={sectionEyebrowLight}>About RCB Automation</div>
         </div>
         <h2 style={{ ...sectionTitleLeft, marginTop: 20 }}>Engineering-first automation partnership</h2>
-        <p style={leftLead}>RCB Automation helps manufacturers improve efficiency, controls visibility, safety, and long-term performance through custom industrial automation solutions. Our work is centered on dependable delivery, clear communication, and results that support growth.</p>
+        <p style={leftLead}>RCB Automation helps companies improve efficiency, controls visibility, safety, and long-term performance through custom industrial automation solutions. Our work is centered on dependable delivery, clear communication, and results that support growth.</p>
         <p style={{ ...leftLead, marginTop: 18 }}>We partner with clients from concept through commissioning and continue supporting them as systems evolve, expand, and scale.</p>
         <video controls muted playsInline style={{ width: '100%', aspectRatio: '16 / 9', maxHeight: 620, borderRadius: 24, marginTop: 28, objectFit: 'contain', display: 'block', background: '#000' }}>
           <source src={MARINE_VIDEO_SRC} type="video/mp4" />
