@@ -71,6 +71,7 @@ const pages = {
   caseStudies: 'Case Studies',
   blog: 'Blog',
   contact: 'Contact Us',
+  gallery: 'Gallery',
 };
 
 const topFeatures = [
