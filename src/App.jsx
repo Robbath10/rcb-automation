@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import GalleryPage from './GalleryPage';
 
 const HERO_SRC = 'https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&w=1800&q=80';
 const MARINE_VIDEO_SRC = (typeof window !== 'undefined' && window.location?.hostname?.includes('chatgpt'))
