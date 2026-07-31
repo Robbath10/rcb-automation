@@ -300,6 +300,7 @@ export default function App() {
         {page === 'caseStudies' && <CaseStudiesPage />}
         {page === 'blog' && <BlogPage posts={cmsBlogPosts} news={industrialNews} />}
         {page === 'contact' && <ContactPage />}
+        {page === 'gallery' && <GalleryPage />}
       </main>
     </div>
   );
@@ -340,6 +341,7 @@ function Header({ page, setPage, mobileOpen, setMobileOpen }) {
     ['about', 'About'],
     ['caseStudies', 'Case Studies'],
     ['blog', 'Blog'],
+    ['gallery', 'Gallery'],
   ];
 
   return (
