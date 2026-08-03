@@ -23,6 +23,13 @@ const galleryItems = [
       'Completed industrial control enclosure with integrated HMI, emergency stop, disconnect controls, and a durable freestanding cabinet design.',
     image: '/control-panel-exterior.jpg',
   },
+  {
+  title: 'On-Site Commissioning',
+  category: 'Commissioning',
+  description:
+    'Commissioning and production startup of a FANUC robotic automation cell, including PLC integration, robot programming, testing, and customer acceptance.',
+  image: '/on-site-commissioning.jpg',
+},
 ];
 
 export default function GalleryPage() {
