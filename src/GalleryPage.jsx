@@ -1,280 +1,176 @@
 import { useEffect, useState } from 'react';
+import './GalleryPage.css';
 
 const galleryItems = [
   {
     title: 'PLC & HMI Programming',
     category: 'Controls',
-    description:'Allen-Bradley PanelView Plus HMI development for an automated robotic production cell.',
+    description:
+      'Allen-Bradley PanelView Plus HMI development for an automated robotic production cell.',
     image: '/plc-hmi-robot-cell-overview.jpg',
   },
   {
     title: 'Control Panel Design',
     category: 'Engineering',
-    description: 'Custom industrial control panel design, wiring, PLC integration, safety circuits, and field I/O.',
+    description:
+      'Custom industrial control panel design featuring Rockwell ControlLogix hardware, safety I/O, network infrastructure, VFD integration, and professionally routed field wiring.',
     image: '/control-panel-design.jpg',
-  },
-  {
-    title: 'Robotic Integration',
-    category: 'Robotics',
-    description: 'Industrial robot integration for reliable, repeatable production.',
-    image: 'https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&w=1400&q=85',
-  },
-  {
-    title: 'Automated Production',
-    category: 'Automation',
-    description: 'Purpose-built automated equipment designed around the production process.',
-    image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1400&q=85',
-  },
-  {
-    title: 'Controls Engineering',
-    category: 'Controls',
-    description: 'PLC, HMI, safety, and control-panel engineering for industrial systems.',
-    image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1400&q=85',
-  },
-  {
-    title: 'System Commissioning',
-    category: 'Startup',
-    description: 'Factory acceptance testing, installation support, and on-site startup.',
-    image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1400&q=85',
-  },
-  {
-    title: 'Industrial Manufacturing',
-    category: 'Manufacturing',
-    description: 'Integrated solutions that improve uptime, quality, and throughput.',
-    image: 'https://images.unsplash.com/photo-1565514020179-026b92b84bb6?auto=format&fit=crop&w=1400&q=85',
-  },
-  {
-    title: 'Machine Modernization',
-    category: 'Upgrades',
-    description: 'Controls and safety upgrades that extend the life of existing equipment.',
-    image: 'https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=1400&q=85',
   },
 ];
 
 export default function GalleryPage() {
-  const [selected, setSelected] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+
+  const selectedItem =
+    selectedIndex === null ? null : galleryItems[selectedIndex];
+
+  const closeLightbox = () => setSelectedIndex(null);
+
+  const showPrevious = () => {
+    setSelectedIndex((currentIndex) =>
+      currentIndex === null
+        ? 0
+        : (currentIndex - 1 + galleryItems.length) % galleryItems.length
+    );
+  };
+
+  const showNext = () => {
+    setSelectedIndex((currentIndex) =>
+      currentIndex === null
+        ? 0
+        : (currentIndex + 1) % galleryItems.length
+    );
+  };
 
   useEffect(() => {
-    const closeOnEscape = (event) => {
-      if (event.key === 'Escape') setSelected(null);
+    if (selectedIndex === null) {
+      document.body.style.overflow = '';
+      return undefined;
+    }
+
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') closeLightbox();
+      if (event.key === 'ArrowLeft') showPrevious();
+      if (event.key === 'ArrowRight') showNext();
     };
-    window.addEventListener('keydown', closeOnEscape);
-    return () => window.removeEventListener('keydown', closeOnEscape);
-  }, []);
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedIndex]);
 
   return (
-    <section style={styles.section}>
-      <div style={styles.container}>
-        <div style={styles.headingBlock}>
-          <div style={styles.eyebrow}>RCB Automation Projects</div>
-          <h2 style={styles.heading}>Automation in action</h2>
-          <p style={styles.intro}>
-            Explore examples of industrial automation, robotic integration, controls engineering,
-            commissioning, and production-system modernization.
-          </p>
-        </div>
+    <main className="gallery-page">
+      <section className="gallery-hero">
+        <p className="gallery-eyebrow">RCB Automation Projects</p>
+        <h1>Project Gallery</h1>
+        <p className="gallery-intro">
+          Industrial automation, PLC and HMI programming, control panel
+          engineering, robotics, system integration, and commissioning.
+        </p>
+      </section>
 
-        <div style={styles.grid}>
-          {galleryItems.map((item) => (
+      <section className="gallery-grid" aria-label="Project gallery">
+        {galleryItems.map((item, index) => (
+          <article className="gallery-card" key={item.title}>
             <button
-              key={item.title}
+              className="gallery-image-button"
               type="button"
-              onClick={() => setSelected(item)}
-              style={styles.card}
-              aria-label={`View ${item.title}`}
+              onClick={() => setSelectedIndex(index)}
+              aria-label={`View ${item.title} full size`}
             >
-              <img src={item.image} alt={item.title} style={styles.image} loading="lazy" />
-              <div style={styles.overlay} />
-              <div style={styles.cardContent}>
-                <span style={styles.category}>{item.category}</span>
-                <h3 style={styles.cardTitle}>{item.title}</h3>
-                <p style={styles.cardText}>{item.description}</p>
-                <span style={styles.viewText}>View image →</span>
-              </div>
+              <img
+                className="gallery-image"
+                src={item.image}
+                alt={item.title}
+                loading="lazy"
+              />
             </button>
-          ))}
-        </div>
-      </div>
 
-      {selected && (
+            <div className="gallery-card-content">
+              <span className="gallery-category">{item.category}</span>
+              <h2>{item.title}</h2>
+              <p>{item.description}</p>
+
+              <button
+                className="gallery-view-button"
+                type="button"
+                onClick={() => setSelectedIndex(index)}
+              >
+                View full size
+              </button>
+            </div>
+          </article>
+        ))}
+      </section>
+
+      {selectedItem && (
         <div
-          style={styles.lightbox}
+          className="gallery-lightbox"
           role="dialog"
           aria-modal="true"
-          aria-label={selected.title}
-          onClick={() => setSelected(null)}
+          aria-label={`${selectedItem.title} full-size image`}
+          onClick={closeLightbox}
         >
           <button
+            className="lightbox-close"
             type="button"
-            style={styles.closeButton}
-            onClick={() => setSelected(null)}
-            aria-label="Close image"
+            onClick={closeLightbox}
+            aria-label="Close full-size image"
           >
             ×
           </button>
-          <div style={styles.lightboxPanel} onClick={(event) => event.stopPropagation()}>
-            <img src={selected.image} alt={selected.title} style={styles.lightboxImage} />
-            <div style={styles.lightboxCaption}>
-              <span style={styles.category}>{selected.category}</span>
-              <h3 style={styles.lightboxTitle}>{selected.title}</h3>
-              <p style={styles.lightboxText}>{selected.description}</p>
-            </div>
-          </div>
+
+          {galleryItems.length > 1 && (
+            <button
+              className="lightbox-arrow lightbox-arrow-left"
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                showPrevious();
+              }}
+              aria-label="Previous image"
+            >
+              ‹
+            </button>
+          )}
+
+          <figure
+            className="lightbox-content"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <img
+              className="lightbox-image"
+              src={selectedItem.image}
+              alt={selectedItem.title}
+            />
+
+            <figcaption className="lightbox-caption">
+              <span>{selectedItem.category}</span>
+              <strong>{selectedItem.title}</strong>
+            </figcaption>
+          </figure>
+
+          {galleryItems.length > 1 && (
+            <button
+              className="lightbox-arrow lightbox-arrow-right"
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                showNext();
+              }}
+              aria-label="Next image"
+            >
+              ›
+            </button>
+          )}
         </div>
       )}
-    </section>
+    </main>
   );
 }
-
-const styles = {
-  section: {
-    background: 'linear-gradient(180deg, #020814 0%, #071426 100%)',
-    padding: '72px 24px 96px',
-    color: '#ffffff',
-  },
-  container: {
-    width: 'min(1180px, 100%)',
-    margin: '0 auto',
-  },
-  headingBlock: {
-    maxWidth: 820,
-    margin: '0 auto 42px',
-    textAlign: 'center',
-  },
-  eyebrow: {
-    color: '#60a5fa',
-    fontSize: 14,
-    fontWeight: 900,
-    letterSpacing: '0.13em',
-    textTransform: 'uppercase',
-  },
-  heading: {
-    margin: '12px 0 16px',
-    fontSize: 'clamp(38px, 6vw, 68px)',
-    lineHeight: 1.02,
-    letterSpacing: '-0.04em',
-  },
-  intro: {
-    margin: 0,
-    color: '#cbd5e1',
-    fontSize: 'clamp(17px, 2vw, 20px)',
-    lineHeight: 1.75,
-  },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(285px, 1fr))',
-    gap: 22,
-  },
-  card: {
-    position: 'relative',
-    minHeight: 410,
-    padding: 0,
-    overflow: 'hidden',
-    border: '1px solid rgba(255,255,255,0.12)',
-    borderRadius: 18,
-    background: '#081224',
-    color: '#ffffff',
-    textAlign: 'left',
-    cursor: 'pointer',
-    boxShadow: '0 24px 50px rgba(0,0,0,0.28)',
-  },
-  image: {
-    position: 'absolute',
-    inset: 0,
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    transition: 'transform 250ms ease',
-  },
-  overlay: {
-    position: 'absolute',
-    inset: 0,
-    background: 'linear-gradient(180deg, rgba(2,8,20,0.08) 15%, rgba(2,8,20,0.94) 92%)',
-  },
-  cardContent: {
-    position: 'absolute',
-    inset: 'auto 0 0',
-    padding: 28,
-    zIndex: 2,
-  },
-  category: {
-    display: 'inline-block',
-    color: '#fde68a',
-    fontSize: 12,
-    fontWeight: 900,
-    letterSpacing: '0.12em',
-    textTransform: 'uppercase',
-  },
-  cardTitle: {
-    margin: '10px 0 8px',
-    fontSize: 27,
-    lineHeight: 1.1,
-  },
-  cardText: {
-    margin: 0,
-    color: '#dbeafe',
-    fontSize: 15,
-    lineHeight: 1.55,
-  },
-  viewText: {
-    display: 'inline-block',
-    marginTop: 17,
-    color: '#ffffff',
-    fontSize: 13,
-    fontWeight: 900,
-    letterSpacing: '0.06em',
-    textTransform: 'uppercase',
-  },
-  lightbox: {
-    position: 'fixed',
-    inset: 0,
-    zIndex: 1000,
-    display: 'grid',
-    placeItems: 'center',
-    padding: 24,
-    background: 'rgba(0,0,0,0.88)',
-    backdropFilter: 'blur(8px)',
-  },
-  lightboxPanel: {
-    width: 'min(1050px, 100%)',
-    maxHeight: '90vh',
-    overflow: 'auto',
-    borderRadius: 18,
-    background: '#071426',
-    boxShadow: '0 32px 90px rgba(0,0,0,0.6)',
-  },
-  lightboxImage: {
-    display: 'block',
-    width: '100%',
-    maxHeight: '68vh',
-    objectFit: 'cover',
-  },
-  lightboxCaption: {
-    padding: '24px 28px 30px',
-  },
-  lightboxTitle: {
-    margin: '8px 0',
-    fontSize: 30,
-  },
-  lightboxText: {
-    margin: 0,
-    color: '#cbd5e1',
-    fontSize: 17,
-    lineHeight: 1.6,
-  },
-  closeButton: {
-    position: 'fixed',
-    top: 18,
-    right: 22,
-    zIndex: 1001,
-    width: 46,
-    height: 46,
-    border: '1px solid rgba(255,255,255,0.25)',
-    borderRadius: '50%',
-    background: 'rgba(3,11,24,0.85)',
-    color: '#ffffff',
-    fontSize: 30,
-    lineHeight: 1,
-    cursor: 'pointer',
-  },
-};
