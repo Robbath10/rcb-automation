@@ -125,7 +125,7 @@ const styles = {
   },
   heading: {
     margin: '12px 0 16px',
-    fontSize: 'clamp(38px, 6vw, 68px)',
+    fontSize: 'clamp(38px, 6vw, 58px)',
     lineHeight: 1.02,
     letterSpacing: '-0.04em',
   },
