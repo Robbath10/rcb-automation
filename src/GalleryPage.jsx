@@ -10,11 +10,18 @@ const galleryItems = [
     image: '/plc-hmi-robot-cell-overview.jpg',
   },
   {
-    title: 'Control Panel Design',
+    title: 'Control Panel Design – Interior',
     category: 'Engineering',
     description:
-      'Custom industrial control panel design featuring Rockwell ControlLogix hardware, safety I/O, network infrastructure, VFD integration, and professionally routed field wiring.',
-    image: '/control-panel-design.jpg',
+      'Custom industrial control panel featuring Rockwell ControlLogix hardware, safety I/O, network infrastructure, VFD integration, and professionally routed field wiring.',
+    image: '/control-panel-interior.jpg',
+  },
+  {
+    title: 'Control Panel Design – Exterior',
+    category: 'Engineering',
+    description:
+      'Completed industrial control enclosure with integrated HMI, emergency stop, disconnect controls, and a durable freestanding cabinet design.',
+    image: '/control-panel-exterior.jpg',
   },
 ];
 
@@ -77,7 +84,7 @@ export default function GalleryPage() {
 
       <section className="gallery-grid" aria-label="Project gallery">
         {galleryItems.map((item, index) => (
-          <article className="gallery-card" key={item.title}>
+          <article className="gallery-card" key={`${item.title}-${index}`}>
             <button
               className="gallery-image-button"
               type="button"
@@ -126,19 +133,17 @@ export default function GalleryPage() {
             ×
           </button>
 
-          {galleryItems.length > 1 && (
-            <button
-              className="lightbox-arrow lightbox-arrow-left"
-              type="button"
-              onClick={(event) => {
-                event.stopPropagation();
-                showPrevious();
-              }}
-              aria-label="Previous image"
-            >
-              ‹
-            </button>
-          )}
+          <button
+            className="lightbox-arrow lightbox-arrow-left"
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              showPrevious();
+            }}
+            aria-label="Previous image"
+          >
+            ‹
+          </button>
 
           <figure
             className="lightbox-content"
@@ -156,19 +161,17 @@ export default function GalleryPage() {
             </figcaption>
           </figure>
 
-          {galleryItems.length > 1 && (
-            <button
-              className="lightbox-arrow lightbox-arrow-right"
-              type="button"
-              onClick={(event) => {
-                event.stopPropagation();
-                showNext();
-              }}
-              aria-label="Next image"
-            >
-              ›
-            </button>
-          )}
+          <button
+            className="lightbox-arrow lightbox-arrow-right"
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              showNext();
+            }}
+            aria-label="Next image"
+          >
+            ›
+          </button>
         </div>
       )}
     </main>
