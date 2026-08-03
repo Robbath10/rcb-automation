@@ -14,12 +14,6 @@ const galleryItems = [
     image: '/control-panel-design.jpg',
   },
   {
-    title: 'Control Panel Design',
-    category: 'Engineering',
-    description: 'Custom industrial control panel design, wiring, PLC integration, safety circuits, and field I/O.',
-    image: '/control-panel-design.jpg',
-  },
-  {
     title: 'Robotic Integration',
     category: 'Robotics',
     description: 'Industrial robot integration for reliable, repeatable production.',
