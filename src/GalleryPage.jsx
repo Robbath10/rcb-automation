@@ -30,6 +30,14 @@ const galleryItems = [
     'Commissioning and production startup of a FANUC robotic automation cell, including PLC integration, robot programming, testing, and customer acceptance.',
   image: '/on-site-commissioning.jpg',
 },
+  {
+  title: 'FANUC Robotics',
+  category: 'Robotics',
+  description:
+    'FANUC robot programming, integration, commissioning, and production automation.',
+  image: '/fanuc-robotics-thumbnail.jpg',
+  video: '/fanuc-robotics.mp4',
+},
 ];
 
 export default function GalleryPage() {
