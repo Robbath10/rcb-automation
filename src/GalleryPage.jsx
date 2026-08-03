@@ -4,9 +4,14 @@ const galleryItems = [
   {
     title: 'PLC & HMI Programming',
     category: 'Controls',
-    description:
-      'Allen-Bradley PanelView Plus HMI development for an automated robotic production cell.',
+    description:'Allen-Bradley PanelView Plus HMI development for an automated robotic production cell.',
     image: '/plc-hmi-robot-cell-overview.jpg',
+  },
+  {
+    title: 'Control Panel Design',
+    category: 'Engineering',
+    description: 'Custom industrial control panel design, wiring, PLC integration, safety circuits, and field I/O.',
+    image: '/control-panel-design.jpg',
   },
   {
     title: 'Robotic Integration',
