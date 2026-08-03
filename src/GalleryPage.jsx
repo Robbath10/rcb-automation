@@ -2,6 +2,13 @@ import { useEffect, useState } from 'react';
 
 const galleryItems = [
   {
+    title: 'PLC & HMI Programming',
+    category: 'Controls',
+    description:
+      'Allen-Bradley PanelView Plus HMI development for an automated robotic production cell.',
+    image: '/plc-hmi-robot-cell-overview.jpg',
+  },
+  {
     title: 'Robotic Integration',
     category: 'Robotics',
     description: 'Industrial robot integration for reliable, repeatable production.',
@@ -85,8 +92,21 @@ export default function GalleryPage() {
       </div>
 
       {selected && (
-        <div style={styles.lightbox} role="dialog" aria-modal="true" aria-label={selected.title} onClick={() => setSelected(null)}>
-          <button type="button" style={styles.closeButton} onClick={() => setSelected(null)} aria-label="Close image">×</button>
+        <div
+          style={styles.lightbox}
+          role="dialog"
+          aria-modal="true"
+          aria-label={selected.title}
+          onClick={() => setSelected(null)}
+        >
+          <button
+            type="button"
+            style={styles.closeButton}
+            onClick={() => setSelected(null)}
+            aria-label="Close image"
+          >
+            ×
+          </button>
           <div style={styles.lightboxPanel} onClick={(event) => event.stopPropagation()}>
             <img src={selected.image} alt={selected.title} style={styles.lightboxImage} />
             <div style={styles.lightboxCaption}>
