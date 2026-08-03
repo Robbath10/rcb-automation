@@ -164,11 +164,23 @@ export default function GalleryPage() {
             className="lightbox-content"
             onClick={(event) => event.stopPropagation()}
           >
+          {selectedItem.video ? (
+            <video
+              className="lightbox-video"
+              src={selectedItem.video}
+              controls
+              autoPlay
+              playsInline
+            >
+              Your browser does not support video playback.
+            </video>
+          ) : (
             <img
               className="lightbox-image"
               src={selectedItem.image}
               alt={selectedItem.title}
             />
+          )}
 
             <figcaption className="lightbox-caption">
               <span>{selectedItem.category}</span>
