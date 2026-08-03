@@ -199,6 +199,16 @@
   right: 18px;
 }
 
+.lightbox-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(96vh - 70px);
+  object-fit: contain;
+  background: #000000;
+}
+
 @media (max-width: 720px) {
   .gallery-page {
     padding: 52px 14px 72px;
