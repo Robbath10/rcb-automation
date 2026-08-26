@@ -481,42 +481,6 @@ function IndustriesPage() {
   );
 }
 
-const partnersAndSuppliers = [
-  {
-    name: 'Integration Partners',
-    description:
-      'RCB Automation works with proven technology and integration partners to deliver reliable, production-ready automation systems.',
-  },
-  {
-    name: 'Automation Suppliers',
-    description:
-      'We source automation components and technologies from established suppliers to support dependable system performance, serviceability, and long-term operation.',
-  },
-];
-
-const partnerLogos = [
-  {
-    name: 'Partner 1',
-    src: '/partners/partner-1.png',
-  },
-  {
-    name: 'Partner 2',
-    src: '/partners/partner-2.png',
-  },
-  {
-    name: 'Partner 3',
-    src: '/partners/partner-3.png',
-  },
-  {
-    name: 'Partner 4',
-    src: '/partners/partner-4.png',
-  },
-  {
-    name: 'Partner 5',
-    src: '/partners/partner-5.png',
-  },
-];
-
 function AboutPage() {
   return (
     <section style={lightSection}>
@@ -525,91 +489,12 @@ function AboutPage() {
           <Icon name="briefcase" size={42} />
           <div style={sectionEyebrowLight}>About RCB Automation</div>
         </div>
-
-        <h2 style={{ ...sectionTitleLeft, marginTop: 20 }}>
-          Engineering-first automation partnership
-        </h2>
-
-        <p style={leftLead}>
-          RCB Automation helps companies improve efficiency, controls visibility,
-          safety, and long-term performance through custom industrial automation
-          solutions. Our work is centered on dependable delivery, clear
-          communication, and results that support growth.
-        </p>
-
-        <p style={{ ...leftLead, marginTop: 18 }}>
-          We partner with clients from concept through commissioning and continue
-          supporting them as systems evolve, expand, and scale.
-        </p>
-
-        <video
-          controls
-          muted
-          playsInline
-          style={{
-            width: '100%',
-            aspectRatio: '16 / 9',
-            maxHeight: 620,
-            borderRadius: 24,
-            marginTop: 28,
-            objectFit: 'contain',
-            display: 'block',
-            background: '#000',
-          }}
-        >
+        <h2 style={{ ...sectionTitleLeft, marginTop: 20 }}>Engineering-first automation partnership</h2>
+        <p style={leftLead}>RCB Automation helps companies improve efficiency, controls visibility, safety, and long-term performance through custom industrial automation solutions. Our work is centered on dependable delivery, clear communication, and results that support growth.</p>
+        <p style={{ ...leftLead, marginTop: 18 }}>We partner with clients from concept through commissioning and continue supporting them as systems evolve, expand, and scale.</p>
+        <video controls muted playsInline style={{ width: '100%', aspectRatio: '16 / 9', maxHeight: 620, borderRadius: 24, marginTop: 28, objectFit: 'contain', display: 'block', background: '#000' }}>
           <source src={MARINE_VIDEO_SRC} type="video/mp4" />
         </video>
-      </div>
-
-      {/* Partners & Suppliers */}
-      <div style={{ ...contentWrap, marginTop: 70 }}>
-        <div style={partnerIntro}>
-          <div style={sectionEyebrowLight}>Our Partners & Suppliers</div>
-
-          <h2 style={sectionTitleLight}>
-            Trusted Tech, Proven Results.
-          </h2>
-
-          <p style={sectionTextLight}>
-            RCB Automation partners with established automation technology
-            companies and suppliers to provide dependable components,
-            integration expertise, and production-ready solutions.
-          </p>
-        </div>
-
-        <div style={partnerCategoryGrid}>
-          {partnersAndSuppliers.map((item) => (
-            <div key={item.name} style={partnerCategoryCard}>
-              <div style={blueBadge}>
-                <Icon name="users" size={34} />
-              </div>
-
-              <h3 style={partnerCategoryTitle}>{item.name}</h3>
-
-              <p style={cardText}>{item.description}</p>
-            </div>
-          ))}
-        </div>
-
-        <div style={partnerLogoSection}>
-          <div style={sectionEyebrowLight}>Our Technology Network</div>
-
-          <h3 style={partnerLogoTitle}>
-            Automation Partners & Suppliers
-          </h3>
-
-          <div style={partnerLogoGrid}>
-            {partnerLogos.map((partner) => (
-              <div key={partner.name} style={partnerLogoCard}>
-                <img
-                  src={partner.src}
-                  alt={`${partner.name} logo`}
-                  style={partnerLogo}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );
