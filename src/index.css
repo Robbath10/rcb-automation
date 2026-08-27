@@ -12,12 +12,12 @@ video {
   max-width: 100%;
 }
 
-/* About page image displayed directly below the marine automation video. */
+/* Official ISNetworld Member Contractor badge displayed below the About-page video. */
 main section > div:has(> video)::after {
   content: '';
   display: block;
   width: min(100%, 600px);
-  aspect-ratio: 300 / 88;
+  aspect-ratio: 343 / 100;
   margin: 36px auto 0;
-  background: url('/about-rcb-automation.png') center / contain no-repeat;
+  background: url('https://test-isnetworld.pantheonsite.io/sites/default/files/2025-07/ISNetworld-Member-Badges-121218_ISNetworld%20Member%20Contractor.png') center / contain no-repeat;
 }
