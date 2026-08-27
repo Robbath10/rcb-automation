@@ -11,3 +11,13 @@ body {
 video {
   max-width: 100%;
 }
+
+/* About page image displayed directly below the marine automation video. */
+main section > div:has(> video)::after {
+  content: '';
+  display: block;
+  width: min(100%, 600px);
+  aspect-ratio: 300 / 88;
+  margin: 36px auto 0;
+  background: url('/about-rcb-automation.png') center / contain no-repeat;
+}
